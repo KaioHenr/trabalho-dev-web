@@ -46,7 +46,7 @@ Tela de listagem de bolões que o usuário participa ou participou
 ![Visualizar bolão](./visualizar_bolao_em_andamento.png)
 Tela para visualização de informações do bolão fazer o papite
 
-### 🖼️ Protótipo do Requisito HU-2, HU-3 E HU-6
+### 🖼️ Protótipo do Requisito HU-2, HU-3
 
 ![Criar bolão](./criar_bolao.png)
 Interface com formulário para a criação de um bolão
