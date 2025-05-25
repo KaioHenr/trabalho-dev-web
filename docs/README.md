@@ -33,23 +33,23 @@ Cada funcionalidade de média/alta prioridade descrita no backlog possui uma tel
 
 ### 🖼️ Protótipo do Requisito HU-1
 
-![Autenticação](./login.png)
+![Autenticação](./Login.png)
 Formulário de login para autenticação do usuário no sistema.
 
 ### 🖼️ Protótipo do Requisito HU-7
 
 ![Visualizar bolões](./meus_boloes.png)
-Tela de listagem de bolões que o usuário participa ou participou
+Tela de listagem de bolões que o usuário participa ou participou.
 
 ### 🖼️ Protótipo do Requisito HU-4
 
 ![Visualizar bolão](./visualizar_bolao_em_andamento.png)
-Tela para visualização de informações do bolão fazer o papite
+Tela para visualização de informações do bolão fazer o papite.
 
 ### 🖼️ Protótipo do Requisito HU-2, HU-3
 
 ![Criar bolão](./criar_bolao.png)
-Interface com formulário para a criação de um bolão
+Interface com formulário para a criação de um bolão.
 
 ### 🖼️ Protótipo do Requisito HU-5
 
@@ -59,7 +59,7 @@ Interface para o criador do bolão administrar os participantes e o resultado.
 ### 🖼️ Protótipo do Requisito HU-6
 
 ![Visualizar bolão finalizado](./visualizar_boloes_finalizados.png)
-Tela para visualizar um bolão após ele ter finalizado
+Tela para visualizar um bolão após ele ter finalizado.
 
 
 ### 🖼️ Protótipo do Requisito HU-1
