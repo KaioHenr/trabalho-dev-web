@@ -29,12 +29,44 @@ Este projeto visa o desenvolvimento de um sistema de pedidos online. O sistema p
 
 ## 🎨 Protótipo de Telas
 
-Cada funcionalidade descrita no backlog possui ao menos uma tela representando sua interface esperada.
+Cada funcionalidade de média/alta prioridade descrita no backlog possui uma tela representando sua interface/funcionalidade esperada.
 
 ### 🖼️ Protótipo do Requisito HU-1
 
-![Protótipo da tela de listagem de produtos](wireframe1.png)
-**Figura 1**: Tela de listagem de produtos com imagem, nome e preço — correspondente à história de usuário HU-1.
+![Autenticação](./login.png)
+Formulário de login para autenticação do usuário no sistema.
+
+### 🖼️ Protótipo do Requisito HU-7
+
+![Visualizar bolões](./meus_boloes.png)
+Tela de listagem de bolões que o usuário participa ou participou
+
+### 🖼️ Protótipo do Requisito HU-4
+
+![Visualizar bolão](./visualizar_bolao_em_andamento.png)
+Tela para visualização de informações do bolão fazer o papite
+
+### 🖼️ Protótipo do Requisito HU-2, HU-3 E HU-6
+
+![Criar bolão](./criar_bolao.png)
+Interface com formulário para a criação de um bolão
+
+### 🖼️ Protótipo do Requisito HU-5
+
+![Administrar bolão](./administrar_bolao.png)
+Interface para o criador do bolão administrar os participantes e o resultado.
+
+### 🖼️ Protótipo do Requisito HU-6
+
+![Visualizar bolão finalizado](./visualizar_boloes_finalizados.png)
+Tela para visualizar um bolão após ele ter finalizado
+
+
+### 🖼️ Protótipo do Requisito HU-1
+
+![Entrar em um bolão](./entrar_bolao.png)
+Tela para buscar e entrar em bolões.
+
 
 ---
 
