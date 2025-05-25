@@ -12,18 +12,21 @@ Este projeto visa o desenvolvimento de um sistema de pedidos online. O sistema p
 
 ## ✅ Backlog
 
-| ID    | Prioridade | História de Usuário                                                                 |
-|-------|------------|--------------------------------------------------------------------------------------|
-| HU-1  | 1️⃣         | **No papel de cliente**, desejo **visualizar uma lista de produtos com imagem e preço**, para poder escolher o que desejo comprar. |
-| HU-2  | 2️⃣         | **No papel de cliente**, desejo **filtrar os produtos por categoria**, para encontrar mais rapidamente o que procuro. |
-| HU-3  | 3️⃣         | **No papel de cliente**, desejo **adicionar um produto ao carrinho**, para organizar minha compra antes de finalizar. |
-| HU-4  | 4️⃣         | **No papel de cliente**, desejo **visualizar os itens no meu carrinho com totais**, para acompanhar o valor da compra. |
-| HU-5  | 5️⃣         | **No papel de cliente**, desejo **remover ou alterar a quantidade de itens no carrinho**, para ajustar minha compra. |
-| HU-6  | 6️⃣         | **No papel de cliente**, desejo **finalizar o pedido com um clique**, para concluir minha compra com rapidez. |
-| HU-7  | 7️⃣         | **No papel de cliente**, desejo **ver uma confirmação visual do pedido após finalizar**, para ter certeza que deu tudo certo. |
-| HU-8  | 8️⃣         | **No papel de cliente**, desejo **me autenticar com login e senha**, para acessar meu histórico de pedidos e carrinho. |
-| HU-9  | 9️⃣         | **No papel de cliente**, desejo **visualizar o histórico de pedidos realizados**, para acompanhar minhas compras anteriores. |
-| HU-10 | 🔟         | **No papel de administrador**, desejo **visualizar todos os pedidos realizados**, para acompanhar e organizar a entrega. |
+
+
+| ID    | Prioridade   | História de Usuário                                                                                                                     |
+|-------|--------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| HU-1  | Alta         | No papel de usuário, desejo me cadastrar e fazer login, para poder participar dos bolões.                                               |
+| HU-2  | Alta         | No papel de usuário, desejo criar um bolão público ou privado, para permitir que outros participem por convite ou código.               |
+| HU-3  | Alta         | No papel de criador de bolão, desejo cadastrar opções de palpite, para que os participantes possam escolher entre elas.                 |
+| HU-4  | Alta         | No papel de participante, desejo entrar em um bolão e fazer meus palpites, para tentar acertar o resultado antes do prazo.              |
+| HU-5  | Média-Alta   | No papel de criador de bolão, desejo encerrar o bolão e registrar o resultado real, para definir os ganhadores.                         |
+| HU-6  | Média        | No papel de usuário, desejo visualizar o ranking de participantes, para acompanhar meu desempenho em cada bolão e no geral.             |
+| HU-7  | Média        | No papel de usuário, desejo ver o histórico de bolões e resultados, para consultar eventos anteriores e seus desfechos.                 |
+| HU-8  | Baixa        | No papel de administrador, desejo que o sistema redistribua automaticamente a premiação, para seguir as regras definidas.               |
+| HU-9  | Baixa        | No papel de participante, desejo ganhar pontos ou prêmios ao acertar palpites, conforme as regras definidas pelo criador do bolão.       |
+| HU-10 | Baixa        | No papel de criador de bolão, desejo definir o tipo de evento e as regras de premiação, para personalizar o funcionamento do bolão.     |
+
 
 ---
 
