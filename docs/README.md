@@ -1,15 +1,13 @@
 # 📘 Documentação do Bolão - Desenvolvimento Web
 
-![Planejamento do Projeto](./PMC.png)
-
----
-
 ## 🧾 Visão Geral
 
 O sistema permite que usuários participem de grupos e façam palpites sobre determinados eventos, sendo possível marcar quais palpites foram vencedores.
 
 ---
+![Planejamento do Projeto](./PMC.jpg)
 
+---
 
 ## ✅ Backlog
 
