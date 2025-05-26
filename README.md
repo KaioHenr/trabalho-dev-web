@@ -1,5 +1,9 @@
 # 📘 Especificação dos Trabalhos -  Desenvolvimento WEB
 
+### Projeto - BOLÃO
+### Componentes do Grupo
+- Alicia Caporalli, Kaio Henrique, Livia Hombre, Pedro Henrique, Samiya, Thiago Fabiano.
+
 ## 📌 Visão Geral
 
 
