@@ -1,4 +1,4 @@
-# 📘 Documentação do Projeto - Desenvolvimento Web
+# 📘 Documentação do Bolão - Desenvolvimento Web
 
 ![Planejamento do Projeto](./PMC.png)
 
@@ -6,9 +6,10 @@
 
 ## 🧾 Visão Geral
 
-Este projeto visa o desenvolvimento de um sistema de pedidos online. O sistema permite que clientes visualizem produtos, adicionem ao carrinho, finalizem compras e acompanhem pedidos. A seguir, detalhamos os principais artefatos exigidos para a entrega.
+O sistema permite que usuários participem de grupos e façam palpites sobre determinados eventos, sendo possível marcar quais palpites foram vencedores.
 
 ---
+
 
 ## ✅ Backlog
 
@@ -73,49 +74,50 @@ Tela para buscar e entrar em bolões.
 
 ---
 
-## 🏗 Análise e Projeto 
-
-O projeto  do sistema 
-
-### Modelo 
-
-![alt text](image-1.png)
-
-### Esboço da arquitetura geral (cliente-servidor)
-
-
-![alt text](image.png)
-
-
-### Autorização  e Autenticação 
-A autorização no Strapi (a partir do v4 e mantida no v5) é baseada em perfis de usuários (roles) e permissões atribuídas a esses perfis. Ela define o que cada usuário pode ou não pode fazer ao interagir com os endpoints da API.
-
-1. Tipos de usuários
-O Strapi tem dois contextos principais de usuários:
-
-🔹 Usuários Autenticados
-Criados via cadastro/login na API pública.
-
-Associados a uma role do tipo “Authenticated” ou outra personalizada.
-
-Usam token JWT para acesso autenticado.
-
-🔸 Usuários Administrativos
-Criados via painel de administração do Strapi.
-
-Usam o Strapi Admin Panel.
-
-Gerenciados separadamente e com permissões diferentes.
-
-
-### Tecnologias a serem utilizadas 
-Strapi, HTML, CSS, SQLITE....
+### Tecnologias Previstas
+- **Frontend:** React
+- **UI Libraries:** MUI, Styled Components
+- **Backend:** Node.js com Express
+- **ORM:** Sequelize
+- **Banco de Dados:** MySQL
+- **Deploy:** (a definir)
 
 ---
 
-### Telas do sistema
+## 🗃️ Modelagem de Dados
 
-![alt text](tela1-1.png)
-**Figura 2**: Tela de listagem de produtos com imagem, nome e preço — correspondente à história de usuário HU-1.
+### Modelo 
+
+![alt text](diagrama_dados.jpg)
+
+### Entidades Principais
+
+- **user**
+  - Armazena informações dos usuários cadastrados.
+  - Um usuário pode participar de vários grupos e fazer diversos palpites.
+
+- **palpite**
+  - Representa um palpite realizado em um grupo.
+  - Pode ser marcado como vencedor.
+
+- **grupo**
+  - Define os grupos nos quais os usuários fazem palpites.
+  - Um grupo pode conter vários palpites e múltiplos usuários.
+
+- **user_palpite**
+  - Representa a relação entre usuários e os palpites que eles fizeram.
+
+- **user_grupo**
+  - Representa a relação entre usuários e os grupos dos quais participam.
+
+## 🏗️ Arquitetura da Aplicação
+
+A aplicação será construída com uma arquitetura baseada em **API REST**:
+
+- O **frontend em React** consumirá os dados por meio de requisições HTTP.
+- O **backend em Express (Node.js)** será responsável por gerenciar as regras de negócio e expor as APIs.
+- O **Sequelize** será utilizado como camada de abstração para o banco de dados **MySQL**.
+
+
 
 
