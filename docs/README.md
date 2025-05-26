@@ -5,7 +5,7 @@
 O sistema permite que usuários participem de grupos e façam palpites sobre determinados eventos, sendo possível marcar quais palpites foram vencedores.
 
 ---
-![Planejamento do Projeto](./PMC.jpg)
+![Planejamento do Projeto](./pmc.jpg)
 
 ---
 
