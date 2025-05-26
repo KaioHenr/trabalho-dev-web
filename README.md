@@ -2,7 +2,7 @@
 
 ### Projeto - BOLÃO
 ### Componentes do Grupo
-- Alicia Caporalli, Kaio Henrique, Livia Hombre, Pedro Henrique, Samiya, Thiago Fabiano.
+- Alicia Caporalli, Kaio Henrique, Livia Hombre, Pedro Henrique, Samiya Andrade, Thiago Fabiano.
 
 ## 📌 Visão Geral
 
