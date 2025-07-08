@@ -14,11 +14,7 @@ export const TableGrupo = bolaoDB.define('grupo', {
     descricao: {
         type: Sequelize.STRING,
         allowNull: true,
-    },
-    data_criacao: {
-        type: Sequelize.DATE,
-        allowNull: false,
-    },
+    }
 }, {
     freezeTableName: true,
     timestamps: true,
