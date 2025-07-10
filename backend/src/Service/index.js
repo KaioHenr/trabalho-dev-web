@@ -16,6 +16,21 @@ import {
     RemoveGrupo
 } from './ServiceGrupo.js';
 
+import {
+    SelectOneOpcao,
+    SelectAllOpcao,
+    InsertOpcao,
+    UpdateOpcao,
+    RemoveOpcao
+} from './ServiceOpcao.js'
+
+import {
+    InsertAposta,
+    SelectOneAposta,
+    SelectAllAposta,
+    RemoveAposta
+} from './ServiceAposta.js'
+
 export {
     // User
     SelectUser,
@@ -30,5 +45,16 @@ export {
     SelectOneGrupo,
     InsertGrupo,
     UpdateGrupo,
-    RemoveGrupo
+    RemoveGrupo,
+    //Opcao
+    SelectOneOpcao,
+    SelectAllOpcao,
+    InsertOpcao,
+    UpdateOpcao,
+    RemoveOpcao,
+    //Aposta
+    InsertAposta,
+    SelectOneAposta,
+    SelectAllAposta,
+    RemoveAposta
 };

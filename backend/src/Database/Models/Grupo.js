@@ -18,6 +18,10 @@ export const TableGrupo = bolaoDB.define('grupo', {
     criadorId: {
         type: Sequelize.INTEGER,
         allowNull: false,
+    },
+    opcaoId: {
+        type: Sequelize.INTEGER,
+        allowNull: true
     }
 }, {
     timestamps: true,

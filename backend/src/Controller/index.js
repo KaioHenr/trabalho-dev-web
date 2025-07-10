@@ -15,22 +15,36 @@ import {
     DeleteGrupo
 } from './ControllerGrupo.js';
 
+import {
+    PostOpcao,
+    GetOneOpcao,
+    GetAllOpcao,
+    PatchOpcao,
+    DeleteOpcao,
+} from './ControllerOpcao.js'
+import {
+    PostAposta,
+    GetOneAposta,
+    GetAllAposta,
+    DeleteAposta,
+} from './ControllerAposta.js'
 async function Authentication(req, res, next) {
-    try {
-        if (!req.headers.token) {
-            return res.status(401).json({ message: "Token não fornecido para autenticação." });
-        }
+    next();
+    // try {
+    //     if (!req.headers.token) {
+    //         return res.status(401).json({ message: "Token não fornecido para autenticação." });
+    //     }
 
-        const verification = await CheckToken(req.headers.token);
+    //     const verification = await CheckToken(req.headers.token);
 
-        if (verification.statuscode !== 200) {
-            return res.status(verification.statuscode).json({ message: verification.message });
-        }
-        next();
-    } catch (error) {
-        console.error('Authentication error:', error);
-        res.status(500).json({ message: "Erro interno durante autenticação" });
-    }
+    //     if (verification.statuscode !== 200) {
+    //         return res.status(verification.statuscode).json({ message: verification.message });
+    //     }
+    //     next();
+    // } catch (error) {
+    //     console.error('Authentication error:', error);
+    //     res.status(500).json({ message: "Erro interno durante autenticação" });
+    // }
 }
 
 async function CheckToken(token) {
@@ -79,5 +93,16 @@ export {
     GetOneGrupo,
     GetAllGrupo,
     PatchGrupo,
-    DeleteGrupo
+    DeleteGrupo,
+    // Opcao
+    PostOpcao,
+    GetOneOpcao,
+    GetAllOpcao,
+    PatchOpcao,
+    DeleteOpcao,
+    //Aposta
+    PostAposta,
+    GetOneAposta,
+    GetAllAposta,
+    DeleteAposta,
 };
