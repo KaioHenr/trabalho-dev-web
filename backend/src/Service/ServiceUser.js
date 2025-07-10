@@ -11,6 +11,16 @@ export async function SelectOneUser(id) {
     }
 }
 
+export async function SelectOneUserByEmail(email) {
+    try {
+        const user = await TableUser.findOne({ where: { email: email }});
+        if (!user) throw new Error('Usuário não encontrado.');
+        return user;
+    } catch (error) {
+        throw new Error('Erro ao buscar usuário: ' + error.message);
+    }
+}
+
 export async function SelectAllUser() {
     try {
         return await TableUser.findAll();

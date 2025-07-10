@@ -2,6 +2,7 @@
 
 import {
     SelectOneUser,
+    SelectOneUserByEmail,
     SelectAllUser,
     InsertUser,
     UpdateUser,
@@ -11,6 +12,7 @@ import {
 export {
     //User
     SelectOneUser,
+    SelectOneUserByEmail,
     SelectAllUser,
     InsertUser,
     UpdateUser,
