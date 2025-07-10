@@ -30,9 +30,9 @@ export const TableUser = bolaoDB.define('user', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    status: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false
+    Token: {
+        type: Sequelize.STRING,
+        allowNull: true
     }
 }, {
     timestamps: true,
