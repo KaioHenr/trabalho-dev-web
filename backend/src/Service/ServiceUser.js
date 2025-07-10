@@ -31,8 +31,6 @@ export async function SelectUser(email, senha) {
     }
 }
 
-
-
 export async function SelectAllUser() {
     try {
         return await TableUser.findAll();

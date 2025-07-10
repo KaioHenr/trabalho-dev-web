@@ -1,12 +1,19 @@
-
 import {
     GetAuth,
     PostUser,
     GetOneUser,
     GetAllUser,
     PatchUser,
-    DeleteUser
+    DeleteUser,
 } from './ControllerUser.js';
+
+import {
+    PostGrupo,
+    GetOneGrupo,
+    GetAllGrupo,
+    PatchGrupo,
+    DeleteGrupo
+} from './ControllerGrupo.js';
 
 async function Authentication(req, res, next) {
     try {
@@ -67,4 +74,10 @@ export {
     GetAllUser,
     PatchUser,
     DeleteUser,
+    // Grupo/Bolao
+    PostGrupo,
+    GetOneGrupo,
+    GetAllGrupo,
+    PatchGrupo,
+    DeleteGrupo
 };
