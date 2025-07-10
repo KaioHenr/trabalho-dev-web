@@ -1,23 +1,27 @@
 import { Sequelize } from "sequelize";
 import bolaoDB from '../index.js';
 
-export const TableLogin = bolaoDB.define('login', {
+export const TableAposta = bolaoDB.define('aposta', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    id_user: {
+    userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    status: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true,
+    opcaoId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+    },
+    valor: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
     }
 }, {
     timestamps: true,
     paranoid: true,
     schema: 'dbo',
-    tableName: 'login',
+    tableName: 'aposta',
 });

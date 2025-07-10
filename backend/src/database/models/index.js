@@ -1,61 +1,45 @@
-import { TableGrupo } from "./grupo.js";
-import { TableUser } from "./user.js";
-import { TableUserGrupoOpcao } from "./userGrupoOpcao.js";
-import { TableOpcaoGrupo } from "./opcaoGrupo.js";
-import { TableLogin } from "./login.js";
+import { TableGrupo } from "./Grupo.js";
+import { TableUser } from "./User.js";
+import { TableAposta } from "./Aposta.js";
+import { TableUserGrupo } from "./UserGrupo.js";
+import { TableOpcao } from "./Opcao.js";
 import bolaoDB from "../index.js";
 
+TableUser.hasMany(TableAposta, { foreignKey: 'userId', as: 'apostas' });
+TableAposta.belongsTo(TableUser, { foreignKey: 'userId', as: 'apostador' });
 
-// User → Login
-TableUser.hasMany(TableLogin, {
-    foreignKey: 'id_user',
-    onDelete: 'CASCADE',
-});
-
-TableLogin.belongsTo(TableUser, {
-    foreignKey: 'id_user',
-});
-
-// Grupo → Opcoes
-TableGrupo.hasMany(TableOpcaoGrupo, {
-    foreignKey: 'id_grupo',
-    onDelete: 'CASCADE',
-});
-TableOpcaoGrupo.belongsTo(TableGrupo, {
-    foreignKey: 'id_grupo',
+TableUser.belongsToMany(TableGrupo, {
+    through: TableUserGrupo,
+    foreignKey: 'userId',
+    otherKey: 'grupoId',
+    as: 'grupos',
 });
 
-// Grupo → user_grupo_opcao
-TableGrupo.hasMany(TableUserGrupoOpcao, {
-    foreignKey: 'id_grupo',
-    onDelete: 'CASCADE',
-});
-TableUserGrupoOpcao.belongsTo(TableGrupo, {
-    foreignKey: 'id_grupo',
+// --- GRUPO ---
+TableGrupo.belongsTo(TableUser, { foreignKey: 'criadorId', as: 'criador' });
+TableGrupo.hasMany(TableOpcao, { foreignKey: 'grupoId', as: 'opcoes' });
+
+TableGrupo.belongsToMany(TableUser, {
+    through: TableUserGrupo,
+    foreignKey: 'grupoId',
+    otherKey: 'userId',
+    as: 'participantes',
 });
 
-// User → user_grupo_opcao
-TableUser.hasMany(TableUserGrupoOpcao, {
-    foreignKey: 'id_user',
-    onDelete: 'CASCADE',
-});
-TableUserGrupoOpcao.belongsTo(TableUser, {
-    foreignKey: 'id_user',
-});
+// --- OPCAO ---
+TableOpcao.belongsTo(TableGrupo, { foreignKey: 'grupoId', as: 'grupo' });
+TableOpcao.hasMany(TableAposta, { foreignKey: 'opcaoId', as: 'apostas' });
 
-// OpcaoGrupo → user_grupo_opcao
-TableOpcaoGrupo.hasMany(TableUserGrupoOpcao, {
-    foreignKey: 'id_opcao',
-    onDelete: 'CASCADE',
-});
-TableUserGrupoOpcao.belongsTo(TableOpcaoGrupo, {
-    foreignKey: 'id_opcao',
-});
+// --- APOSTA ---
+TableAposta.belongsTo(TableOpcao, { foreignKey: 'opcaoId', as: 'opcao' });
 
+// --- USER_GRUPO ---
+TableUserGrupo.belongsTo(TableUser, { foreignKey: 'userId', as: 'usuario' });
+TableUserGrupo.belongsTo(TableGrupo, { foreignKey: 'grupoId', as: 'grupo' });
 
 (async () => {
     try {
-        await bolaoDB.sync({ force: true, alter: false });
+        await bolaoDB.sync({ force: true, alter: true });
         console.log('Database synced successfully.');
     } catch (err) {
         console.error('Error syncing database:', err);
@@ -66,7 +50,7 @@ TableUserGrupoOpcao.belongsTo(TableOpcaoGrupo, {
 export {
     TableGrupo,
     TableUser,
-    TableUserGrupoOpcao,
-    TableOpcaoGrupo,
-    TableLogin
+    TableAposta,
+    TableUserGrupo,
+    TableOpcao
 };

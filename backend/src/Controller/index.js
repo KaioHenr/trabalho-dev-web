@@ -1,10 +1,3 @@
-import {
-    GetOneLogin,
-    GetAllLogin,
-    PostLogin,
-    PatchLogin,
-    DeleteLogin
-} from "./ControllerLogin.js";
 
 import {
     PostUser,
@@ -13,8 +6,6 @@ import {
     PatchUser,
     DeleteUser
 } from './ControllerUser.js';
-
-import { TableLogin } from '../Database/Models/index.js';
 
 async function Authentication(req, res, next) {
     try {
@@ -41,9 +32,7 @@ async function CheckToken(token) {
     }
 
     try {
-        const tokenRecord = await TableLogin.findOne({
-            where: { token: token }
-        });
+
 
         if (!tokenRecord) {
             return { statuscode: 401, message: "Token inválido." };
@@ -70,12 +59,6 @@ export {
     // Função de autenticação
     Authentication,
 
-    // Controler Login
-    GetOneLogin,
-    GetAllLogin,
-    PostLogin,
-    PatchLogin,
-    DeleteLogin,
     // Controler User
     PostUser,
     GetOneUser,

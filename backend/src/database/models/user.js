@@ -9,7 +9,7 @@ export const TableUser = bolaoDB.define('user', {
     },
     nome: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     cpf: {
         type: Sequelize.STRING,
@@ -17,20 +17,33 @@ export const TableUser = bolaoDB.define('user', {
     },
     email: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
         validate: {
             isEmail: true,
         },
     },
-    data_nascimento: {
+    dataNascimento: {
         type: Sequelize.STRING,
-        allowNull: true,
+        allowNull: false,
+    },
+    senha: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 }, {
     timestamps: true,
+    paranoid: true,
     schema: 'dbo',
     tableName: 'user',
     indexes: [
+        {
+            unique: true,
+            fields: ['email']
+        },
         {
             unique: true,
             fields: ['cpf']

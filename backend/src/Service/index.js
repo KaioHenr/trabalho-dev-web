@@ -1,10 +1,4 @@
-import {
-    SelectOneLogin,
-    SelectAllLogin,
-    InsertLogin,
-    UpdateLogin,
-    RemoveLogin
-} from "./ServiceLogin.js";
+
 
 import {
     SelectOneUser,
@@ -15,12 +9,6 @@ import {
 } from './ServiceUser.js';
 
 export {
-    //login
-    SelectOneLogin,
-    SelectAllLogin,
-    InsertLogin,
-    UpdateLogin,
-    RemoveLogin,
     //User
     SelectOneUser,
     SelectAllUser,
