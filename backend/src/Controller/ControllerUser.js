@@ -1,4 +1,5 @@
 import {
+    SelectUser,
     SelectOneUser,
     SelectOneUserByEmail,
     SelectAllUser,
@@ -6,6 +7,17 @@ import {
     UpdateUser,
     RemoveUser
 } from '../Service/index.js';
+
+export async function GetAuth(req, res){
+    try {
+        const { email, senha } = req.body;
+
+        const user = await SelectUser(email, senha);
+        res.json({ message: "Usuário autenticado!"});
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 export async function GetUserByEmail(req, res){
     try {

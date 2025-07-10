@@ -1,5 +1,6 @@
 
 import {
+    GetAuth,
     PostUser,
     GetOneUser,
     GetAllUser,
@@ -60,6 +61,7 @@ export {
     Authentication,
 
     // Controler User
+    GetAuth,
     PostUser,
     GetOneUser,
     GetAllUser,
