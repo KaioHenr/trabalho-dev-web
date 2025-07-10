@@ -39,7 +39,7 @@ TableUserGrupo.belongsTo(TableGrupo, { foreignKey: 'grupoId', as: 'grupo' });
 
 (async () => {
     try {
-        await bolaoDB.sync({ force: true, alter: true });
+        await bolaoDB.sync({ force: false, alter: false });
         console.log('Database synced successfully.');
     } catch (err) {
         console.error('Error syncing database:', err);

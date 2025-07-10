@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 
-config({ path: `.env.${process.env.NODE_ENV}` });
+config({ path: `.env.dev` });
 
 export const databaseConfig = {
     database: process.env.DATABASE_NAME,
