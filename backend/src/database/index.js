@@ -2,18 +2,10 @@ import Sequelize from 'sequelize';
 import { databaseConfig } from '../Config/index.js';
 
 const bolaoDB = new Sequelize(databaseConfig.database, databaseConfig.user, databaseConfig.password, {
-    dialect: 'mssql',
+    dialect: 'mysql',
     host: databaseConfig.host,
-    logging: false,
-    dialectOptions: {
-        options: {
-            encrypt: false,
-            enableArithAbort: false,
-            cryptoCredentialsDetails: {
-                minVersion: 'TLSv1'
-            }
-        }
-    }
+    port: databaseConfig.port,
+    logging: false
 });
 
 bolaoDB.authenticate().then(() => {

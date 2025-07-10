@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "set node_env=dev&& nodemon index.js",
     "build": "rnodemon index.js"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "dotenv": "^17.1.0",
     "env-cmd": "^10.1.0",
     "express": "^4.21.2",
+    "mysql2": "^3.14.1",
     "nodemon": "^3.1.9",
     "sequelize": "^6.37.6",
     "sqlite3": "^5.1.7",

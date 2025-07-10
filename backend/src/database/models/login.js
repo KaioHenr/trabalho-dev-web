@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import bolaoDB from '../index.js';
 
-export const TableUserGrupoOpcao = bolaoDB.define('user_grupo_opcao', {
+export const TableLogin = bolaoDB.define('login', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -11,16 +11,13 @@ export const TableUserGrupoOpcao = bolaoDB.define('user_grupo_opcao', {
         type: Sequelize.INTEGER,
         allowNull: false,
     },
-    id_grupo: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
-    id_opcao: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-    },
+    status: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+    }
 }, {
     timestamps: true,
+    paranoid: true,
     schema: 'dbo',
-    tableName: 'user_grupo_opcao',
+    tableName: 'login',
 });

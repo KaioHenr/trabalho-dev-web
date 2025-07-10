@@ -16,6 +16,7 @@ export const TableOpcaoGrupo = bolaoDB.define('opcao_grupo', {
         allowNull: false,
     },
 }, {
-    freezeTableName: true,
     timestamps: true,
+    schema: 'dbo',
+    tableName: 'opcao_grupo',
 });

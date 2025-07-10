@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import bolaoDB from '../index.js';
 
-export const TableUser = bolaoDB.define('dates', {
+export const TableUser = bolaoDB.define('user', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -27,6 +27,13 @@ export const TableUser = bolaoDB.define('dates', {
         allowNull: true,
     }
 }, {
-    freezeTableName: true,
     timestamps: true,
+    schema: 'dbo',
+    tableName: 'user',
+    indexes: [
+        {
+            unique: true,
+            fields: ['cpf']
+        }
+    ]
 });

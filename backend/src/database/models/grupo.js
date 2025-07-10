@@ -16,6 +16,7 @@ export const TableGrupo = bolaoDB.define('grupo', {
         allowNull: true,
     }
 }, {
-    freezeTableName: true,
     timestamps: true,
+    schema: 'dbo',
+    tableName: 'grupo',
 });

@@ -2,8 +2,19 @@ import { TableGrupo } from "./grupo.js";
 import { TableUser } from "./user.js";
 import { TableUserGrupoOpcao } from "./userGrupoOpcao.js";
 import { TableOpcaoGrupo } from "./opcaoGrupo.js";
+import { TableLogin } from "./login.js";
 import bolaoDB from "../index.js";
 
+
+// User → Login
+TableUser.hasMany(TableLogin, {
+    foreignKey: 'id_user',
+    onDelete: 'CASCADE',
+});
+
+TableLogin.belongsTo(TableUser, {
+    foreignKey: 'id_user',
+});
 
 // Grupo → Opcoes
 TableGrupo.hasMany(TableOpcaoGrupo, {
@@ -44,7 +55,7 @@ TableUserGrupoOpcao.belongsTo(TableOpcaoGrupo, {
 
 (async () => {
     try {
-        await bolaoDB.sync({ force: false });
+        await bolaoDB.sync({ force: true, alter: false });
         console.log('Database synced successfully.');
     } catch (err) {
         console.error('Error syncing database:', err);
@@ -56,5 +67,6 @@ export {
     TableGrupo,
     TableUser,
     TableUserGrupoOpcao,
-    TableOpcaoGrupo
+    TableOpcaoGrupo,
+    TableLogin
 };

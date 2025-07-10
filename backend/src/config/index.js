@@ -7,6 +7,7 @@ export const databaseConfig = {
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
+    port: process.env.DATABASE_PORT,
 }
 export const expressConfig = {
     port: process.env.EXPRESS_PORT
