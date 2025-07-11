@@ -9,7 +9,7 @@ export async function SelectUser(email, senha) {
         if (!user) throw new Error('Usuário não encontrado.');
 
         const token = uuidv4();
-        user.token = token;
+        user.Token = token;
         await user.save();
 
         return {
