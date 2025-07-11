@@ -4,6 +4,44 @@
 ### Componentes do Grupo
 - Alicia Caporalli, Kaio Henrique, Livia Hombre, Pedro Henrique, Samiya Andrade, Thiago Fabiano.
 
+---
+
+### 🔧 Como Rodar o Projeto
+
+Para executar o projeto localmente, siga os passos abaixo:
+
+#### 📌 Pré-requisito
+- É necessário ter o **Node.js** instalado. Você pode baixá-lo aqui: [https://nodejs.org/](https://nodejs.org/)
+
+#### ▶️ Backend
+1. Acesse a pasta do backend:
+   ```bash
+   cd backend
+   ```
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Inicie o servidor:
+   ```bash
+   npm start
+   ```
+
+#### 💻 Frontend
+1. Acesse a pasta do frontend:
+   ```bash
+   cd frontend
+   ```
+2. Instale o Angular CLI versão 15 globalmente:
+   ```bash
+   npm install -g @angular/cli@15
+   ```
+3. Inicie o frontend:
+   ```bash
+   ng serve --open
+   ```
+---
+
 ## 📌 Visão Geral
 
 
