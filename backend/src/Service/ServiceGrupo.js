@@ -1,10 +1,23 @@
-import { TableGrupo } from '../Database/Models/index.js';
+import { TableGrupo, TableUser, TableOpcao } from '../Database/Models/index.js';
 import { InsertOpcao } from './index.js'
 import bolaoDB from '../Database/index.js';
 
 export async function SelectOneGrupo(id) {
     try {
-        const grupo = await TableGrupo.findByPk(id);
+        const grupo = await TableGrupo.findByPk(id, {
+            include: [
+                {
+                    model: TableUser,
+                    as: 'criador',
+                    attributes: ['id', 'nome', 'email']
+                },
+                {
+                    model: TableOpcao,
+                    as: 'opcoes',
+                    attributes: ['id', 'descricao']
+                }
+            ]
+        });
         if (!grupo) throw new Error('Bolão não encontrado.');
         return grupo;
     } catch (error) {
@@ -14,7 +27,21 @@ export async function SelectOneGrupo(id) {
 
 export async function SelectAllGrupos() {
     try {
-        return await TableGrupo.findAll();
+        return await TableGrupo.findAll({
+            include: [
+                {
+                    model: TableUser,
+                    as: 'criador',
+                    attributes: ['id', 'nome', 'email']
+                },
+                {
+                    model: TableOpcao,
+                    as: 'opcoes',
+                    attributes: ['id', 'descricao']
+                }
+            ],
+            order: [['createdAt', 'DESC']]
+        });
     } catch (error) {
         throw new Error('Erro ao buscar bolões: ' + error.message);
     }
