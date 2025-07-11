@@ -9,9 +9,6 @@ import {
 export async function PostGrupo(req, res){
   try {
         const newGrupo = req.body;
-        console.log();
-        console.log(newGrupo);
-        console.log();
         await InsertGrupo(newGrupo);
         res.status(201).json({ message: 'Bolão criado com sucesso' });
     } catch (error) {

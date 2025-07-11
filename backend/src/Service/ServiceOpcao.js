@@ -1,18 +1,13 @@
 import { TableOpcao } from '../Database/Models/index.js';
 import bolaoDB from '../Database/index.js';
 
-export async function InsertOpcao(novaOpcao) {
-    const transaction = await bolaoDB.transaction();
+export async function InsertOpcao(novaOpcao, transaction) {
     try {
-        const created = await TableOpcao.create(novaOpcao, { transaction });
-        await transaction.commit();
-        return created;
+        return await TableOpcao.create(novaOpcao, { transaction });
     } catch (error) {
-        await transaction.rollback();
         throw new Error(`Erro ao inserir opção: ${error.message}`);
     }
 }
-
 export async function SelectOneOpcao(id) {
     const transaction = await bolaoDB.transaction();
     try {

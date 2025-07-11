@@ -1,4 +1,5 @@
 import { TableGrupo } from '../Database/Models/index.js';
+import { InsertOpcao } from './index.js'
 import bolaoDB from '../Database/index.js';
 
 export async function SelectOneGrupo(id) {
@@ -21,8 +22,19 @@ export async function SelectAllGrupos() {
 
 export async function InsertGrupo(newGrupo) {
     const transaction = await bolaoDB.transaction();
+    const { opcoes, ...dataNewGrupo } = newGrupo;
+
     try {
-        await TableGrupo.create(newGrupo, { transaction });
+        const grupoCriado = await TableGrupo.create(dataNewGrupo, { transaction });
+
+        for (const opcoe of opcoes) {
+            const objAux = {
+                grupoId: grupoCriado.id,
+                descricao: opcoe
+            };
+            await InsertOpcao(objAux, transaction);
+        }
+
         await transaction.commit();
         return { success: true };
     } catch (error) {
