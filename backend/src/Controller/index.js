@@ -32,12 +32,20 @@ import {
 
 import { TableUser } from "../Database/Models/index.js";
 
+function extractToken(req) {
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+        return authHeader.split(' ')[1];
+    }
+    return null;
+}
+
 async function Authentication(req, res, next) {
     try {
-        const token = req.headers.authorization;
+        const token = extractToken(req);
 
         if (!token) {
-            return res.status(401).json({ error: 'Token não fornecido.' });
+            return res.status(401).json({ error: 'Token não fornecido ou mal formatado.' });
         }
 
         const user = await TableUser.findOne({ where: { token } });
@@ -46,11 +54,13 @@ async function Authentication(req, res, next) {
             return res.status(401).json({ error: 'Token inválido.' });
         }
 
+        req.user = user; // guarda info do usuário
         next();
     } catch (error) {
         return res.status(500).json({ error: 'Erro na autenticação: ' + error.message });
     }
 }
+
 
 export {
     // Função de autenticação

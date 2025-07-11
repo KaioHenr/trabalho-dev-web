@@ -2,7 +2,6 @@ import {
     SelectUser,
     DeleteSession,
     SelectOneUser,
-    SelectOneUserByEmail,
     SelectAllUser,
     InsertUser,
     UpdateUser,
@@ -33,15 +32,6 @@ export async function Logout(req, res) {
         res.status(500).json({ error: error.message });
     }
 }
-export async function GetUserByEmail(req, res) {
-    try {
-        const { email } = req.params;
-        const user = await SelectOneUserByEmail(email);
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
 
 export async function GetOneUser(req, res) {
     try {
@@ -65,9 +55,6 @@ export async function GetAllUser(req, res) {
 export async function PostUser(req, res) {
     try {
         const newUser = req.body;
-        console.log();
-        console.log(newUser);
-        console.log();
         await InsertUser(newUser);
         res.status(201).json({ message: 'Usuário criado com sucesso' });
     } catch (error) {
