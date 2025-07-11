@@ -13,10 +13,8 @@ export async function SelectUser(email, senha) {
         await user.save();
 
         return {
-            user: {
-                ...user,
-                token: token
-            }
+            ...user.dataValues,
+            token: token
         };
 
     } catch (error) {
