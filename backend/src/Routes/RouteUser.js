@@ -1,8 +1,12 @@
 import express from "express";
 import {
     Authentication,
-    //User
+    //Autenticação
     GetAuth,
+    Logout,
+    GetSession,
+    RefreshToken,
+    //User
     PostUser,
     GetOneUser,
     GetAllUser,
@@ -18,6 +22,10 @@ import {
 export const routerUser = express.Router();
 
 routerUser.post('/login', GetAuth);
+routerUser.patch('/logout', Authentication, Logout);
+routerUser.get('/session', Authentication, GetSession);
+routerUser.patch('/refresh', Authentication, RefreshToken);
+
 routerUser.post('/post-user', PostUser);
 routerUser.get('/get-one-user/:id', Authentication, GetOneUser);
 routerUser.get('/get-all-user', Authentication, GetAllUser);

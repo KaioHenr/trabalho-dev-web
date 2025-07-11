@@ -1,5 +1,6 @@
 import {
     SelectUser,
+    DeleteSession,
     SelectOneUser,
     SelectOneUserByEmail,
     SelectAllUser,
@@ -34,6 +35,7 @@ import {
 export {
     // User
     SelectUser,
+    DeleteSession,
     SelectOneUser,
     SelectOneUserByEmail,
     SelectAllUser,

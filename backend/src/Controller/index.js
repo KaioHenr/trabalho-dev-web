@@ -1,11 +1,18 @@
 import {
-    GetAuth,
+
     PostUser,
     GetOneUser,
     GetAllUser,
     PatchUser,
     DeleteUser,
 } from './ControllerUser.js';
+
+import {
+    GetAuth,
+    Logout,
+    GetSession,
+    RefreshToken,
+} from './ControllerAutenticacao.js'
 
 import {
     PostGrupo,
@@ -54,9 +61,12 @@ async function Authentication(req, res, next) {
 export {
     // Função de autenticação
     Authentication,
-
-    // Controler User
+    //Autenticacao
     GetAuth,
+    Logout,
+    GetSession,
+    RefreshToken,
+    // Controler User
     PostUser,
     GetOneUser,
     GetAllUser,

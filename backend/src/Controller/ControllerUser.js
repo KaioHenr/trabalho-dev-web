@@ -1,5 +1,6 @@
 import {
     SelectUser,
+    DeleteSession,
     SelectOneUser,
     SelectOneUserByEmail,
     SelectAllUser,
@@ -8,18 +9,28 @@ import {
     RemoveUser
 } from '../Service/index.js';
 
-export async function GetAuth(req, res){
+export async function GetAuth(req, res) {
     try {
         const { email, senha } = req.body;
 
         const user = await SelectUser(email, senha);
-        res.json({ message: "Usuário autenticado!"});
+        if (!user) res.status(401).json({ message: 'Usuário não encontrado' })
+        res.json(user);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
-export async function GetUserByEmail(req, res){
+export async function Logout(req, res) {
+    try {
+        const token = req.headers['authorization'];
+        await DeleteSession(token);
+        res.json({ message: 'Sessão encerrada com sucesso' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+export async function GetUserByEmail(req, res) {
     try {
         const { email } = req.params;
         const user = await SelectOneUserByEmail(email);

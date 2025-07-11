@@ -1,6 +1,49 @@
 import { TableUser } from '../Database/Models/index.js';
 import bolaoDB from '../Database/index.js';
+import { v4 as uuidv4 } from 'uuid';
+//auth
+export async function SelectUser(email, senha) {
+    try {
+        const user = await TableUser.findOne({ where: { email, senha } });
 
+        if (!user) throw new Error('Usuário não encontrado.');
+
+        const token = uuidv4();
+        user.token = token;
+        await user.save();
+
+        return {
+            user: {
+                ...user,
+                token: token
+            }
+        };
+
+    } catch (error) {
+        throw new Error('Erro ao buscar usuário: ' + error.message);
+    }
+}
+
+export async function DeleteSession(token) {
+    try {
+        const user = await TableUser.findOne({ where: { token } });
+
+        if (!user) {
+            throw new Error('Sessão não encontrada.');
+        }
+
+        // Remove o token para invalidar a sessão
+        user.token = null;
+        await user.save();
+
+        return true;
+    } catch (error) {
+        throw new Error('Erro ao deletar sessão: ' + error.message);
+    }
+}
+
+
+//user
 export async function SelectOneUser(id) {
     try {
         const user = await TableUser.findByPk(id);
@@ -13,17 +56,7 @@ export async function SelectOneUser(id) {
 
 export async function SelectOneUserByEmail(email) {
     try {
-        const user = await TableUser.findOne({ where: { email: email }});
-        if (!user) throw new Error('Usuário não encontrado.');
-        return user;
-    } catch (error) {
-        throw new Error('Erro ao buscar usuário: ' + error.message);
-    }
-}
-
-export async function SelectUser(email, senha) {
-    try {
-        const user = await TableUser.findOne({ where: { email: email, senha: senha }});
+        const user = await TableUser.findOne({ where: { email: email } });
         if (!user) throw new Error('Usuário não encontrado.');
         return user;
     } catch (error) {
