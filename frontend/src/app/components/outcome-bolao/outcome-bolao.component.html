@@ -1,0 +1,311 @@
+<div class="container title-container" *ngIf="bolao">
+  <div class="row">
+    <div class="col-12 text-white text-left">
+      <span class="fs-3">{{ bolao.nome }}</span>
+    </div>
+    <div class="col-12 p-2 texto-cinza">
+      <span class="fs-5">{{ bolao.descricao }}</span>
+    </div>
+    <!-- Informações adicionais do bolão -->
+    <div class="col-12 mt-3">
+      <div class="row">
+        <div class="col-md-6">
+          <small class="text-white">
+            <i class="fas fa-user me-1"></i>
+            Criado por: <span class="text-white">{{ getCriadorInfo() }}</span>
+          </small>
+        </div>
+        <div class="col-md-6">
+          <small class="text-white" *ngIf="bolao.createdAt">
+            <i class="fas fa-calendar me-1"></i>
+            Em: <span class="text-white">{{ formatarDataCriacao() }}</span>
+          </small>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-6">
+          <small class="text-white">
+            <i class="fas fa-list me-1"></i>
+            Opções: <span class="text-white">{{ getTotalOpcoes() }}</span>
+          </small>
+        </div>
+        <div class="col-md-6">
+          <small class="text-white">
+            <i class="fas fa-users me-1"></i>
+            Participantes: <span class="text-white">{{ getTotalParticipantes() }}</span>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Loading Spinner -->
+<div class="container" *ngIf="isLoading">
+  <div class="row">
+    <div class="col-12 text-center text-white">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Carregando...</span>
+      </div>
+      <p class="mt-2">Carregando dados do bolão...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Resultado do Bolão -->
+<div class="container resultado-bolao" *ngIf="!isLoading && bolao">
+  <div class="row">
+    <div class="col-12 background-claro">
+      <div class="row">
+        <div class="col-12 form-group text-center pb-2">
+          <span class="fs-4 texto-escuro">
+            {{ temGanhador() ? 'Resultado do bolão:' : 'Bolão ainda não finalizado' }}
+          </span>
+        </div>
+        <div class="row form-group" *ngIf="temGanhador()">
+          <div class="col-12 form-group texto-escuro text-center">
+            <span class="fs-5 fw-bold">Opção vencedora:</span>
+            <br>
+            <span class="fs-2 fw-bold text-success">{{ getOpcaoVencedora() }}</span>
+          </div>
+          <div class="col-12 form-group texto-escuro text-center mt-3" *ngIf="ganhadores.length > 0">
+            <span class="fs-5 fw-bold">Ganhador(es):</span>
+            <br>
+            <span class="fs-3 fw-bold text-primary" *ngFor="let ganhador of ganhadores; let last = last">
+              {{ ganhador }}<span *ngIf="!last">, </span>
+            </span>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="!temGanhador()">
+          <div class="col-12 form-group texto-escuro text-center">
+            <span class="fs-3 fw-bold text-warning">Aguardando resultado</span>
+            <br>
+            <small class="text-white">O criador do bolão ainda não definiu a opção vencedora</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Palpites dos Participantes -->
+<div class="container title-container" *ngIf="!isLoading && bolao">
+  <div class="row">
+    <div class="col-12 p-2 text-white">
+      <span class="fs-5">Informações do Bolão</span>
+    </div>
+  </div>
+  
+  <!-- Mostrar opções disponíveis -->
+  <div class="row" *ngIf="bolao.opcoes && bolao.opcoes.length > 0">
+    <div class="col-12">
+      <div class="card bg-dark text-white mb-3">
+        <div class="card-header">
+          <h5 class="mb-0">Opções Disponíveis</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 mb-2" *ngFor="let opcao of bolao.opcoes">
+              <div class="d-flex align-items-center">
+                <span class="badge me-2" 
+                      [class]="bolao.opcaoId === opcao.id ? 'bg-success' : 'bg-secondary'">
+                  {{ opcao.id }}
+                </span>
+                <span [class]="bolao.opcaoId === opcao.id ? 'fw-bold text-success' : ''">
+                  {{ opcao.descricao }}
+                </span>
+                <i class="fas fa-crown text-warning ms-2" *ngIf="bolao.opcaoId === opcao.id"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estatísticas dos Palpites -->
+  <div class="row" *ngIf="participantes.length > 0">
+    <div class="col-12">
+      <h6 class="text-white mb-3">
+        <i class="las la-chart-bar me-2"></i>
+        Estatísticas dos Palpites
+      </h6>
+      
+      <div class="row">
+        <div class="col-md-4 mb-3" *ngFor="let opcao of getEstatisticasPorOpcao()">
+          <div class="card bg-dark border-secondary">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="card-title text-white mb-1">{{ opcao.nome }}</h6>
+                  <p class="card-text">
+                    <span class="badge" [class]="opcao.isVencedora ? 'bg-success' : 'bg-primary'">
+                      {{ opcao.quantidade }} {{ opcao.quantidade === 1 ? 'palpite' : 'palpites' }}
+                    </span>
+                  </p>
+                  <small class="text-white">{{ opcao.porcentagem }}% dos palpites</small>
+                </div>
+                <div>
+                  <i class="las la-crown text-warning fs-3" *ngIf="opcao.isVencedora"></i>
+                  <i class="las la-hand-point-up text-primary fs-3" *ngIf="!opcao.isVencedora"></i>
+                </div>
+              </div>
+              
+              <!-- Barra de progresso -->
+              <div class="progress mt-2" style="height: 6px;">
+                <div class="progress-bar" 
+                     [class]="opcao.isVencedora ? 'bg-success' : 'bg-primary'"
+                     role="progressbar" 
+                     [style.width.%]="opcao.porcentagem">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela de participantes (se houver apostas) -->
+  <div class="row" *ngIf="participantes.length > 0">
+    <div class="col-12">
+      <h6 class="text-white mb-3">
+        <i class="las la-users me-2"></i>
+        Palpites dos Participantes ({{ participantes.length }})
+      </h6>
+      
+      <!-- Versão desktop -->
+      <div class="d-none d-md-block">
+        <table class="table table-dark table-striped">
+          <thead>
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">
+                <i class="las la-user me-1"></i>
+                Participante
+              </th>
+              <th scope="col">
+                <i class="las la-hand-point-up me-1"></i>
+                Palpite
+              </th>
+              <th scope="col">
+                <i class="las la-clock me-1"></i>
+                Data do Palpite
+              </th>
+              <th scope="col" *ngIf="temGanhador()" class="text-center">
+                <i class="las la-trophy me-1"></i>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let participante of participantes" 
+                [class]="participante.isGanhador ? 'table-success' : ''">
+              <th scope="row" class="text-center"
+                  [class]="participante.isGanhador ? 'texto-ganhador fw-bold' : ''">
+                {{ participante.posicao }}
+              </th>
+              <td [class]="participante.isGanhador ? 'texto-ganhador fw-bold' : ''">
+                <div class="d-flex align-items-center">
+                  <i class="las la-user-circle me-2 fs-5"></i>
+                  {{ participante.nome }}
+                  <i class="las la-crown text-warning ms-2" *ngIf="participante.isGanhador"></i>
+                </div>
+              </td>
+              <td [class]="participante.isGanhador ? 'texto-ganhador fw-bold' : ''">
+                <span class="badge me-2" 
+                      [class]="participante.isGanhador ? 'bg-success' : 'bg-primary'">
+                  {{ participante.palpite }}
+                </span>
+              </td>
+              <td class="text-white">
+                <small>{{ formatarDataPalpite(participante.dataPalpite) }}</small>
+              </td>
+              <td *ngIf="temGanhador()" class="text-center"
+                  [class]="participante.isGanhador ? 'texto-ganhador fw-bold' : ''">
+                <span class="badge" 
+                      [class]="participante.isGanhador ? 'bg-success' : 'bg-secondary'">
+                  <i class="las" [class]="participante.isGanhador ? 'la-trophy' : 'la-times'"></i>
+                  {{ participante.isGanhador ? 'GANHOU' : 'Perdeu' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Versão mobile -->
+      <div class="d-block d-md-none">
+        <div class="row">
+          <div class="col-12" *ngFor="let participante of participantes">
+            <div class="card mb-3" 
+                 [class]="participante.isGanhador ? 'border-success bg-success bg-opacity-10' : 'bg-dark'">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <h6 class="card-title mb-0" 
+                      [class]="participante.isGanhador ? 'text-success fw-bold' : 'text-white'">
+                    <i class="las la-user-circle me-2"></i>
+                    {{ participante.nome }}
+                    <i class="las la-crown text-warning ms-2" *ngIf="participante.isGanhador"></i>
+                  </h6>
+                  <span class="badge bg-secondary">#{{ participante.posicao }}</span>
+                </div>
+                
+                <div class="mb-2">
+                  <strong class="text-white">Palpite:</strong>
+                  <span class="badge ms-2" 
+                        [class]="participante.isGanhador ? 'bg-success' : 'bg-primary'">
+                    {{ participante.palpite }}
+                  </span>
+                </div>
+                
+                <div class="mb-2" *ngIf="participante.dataPalpite">
+                  <small class="text-white">
+                    <i class="las la-clock me-1"></i>
+                    {{ formatarDataPalpite(participante.dataPalpite) }}
+                  </small>
+                </div>
+                
+                <div *ngIf="temGanhador()">
+                  <span class="badge" 
+                        [class]="participante.isGanhador ? 'bg-success' : 'bg-secondary'">
+                    <i class="las" [class]="participante.isGanhador ? 'la-trophy' : 'la-times'"></i>
+                    {{ participante.isGanhador ? 'GANHOU' : 'Perdeu' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mensagem quando não há participantes -->
+<div class="container" *ngIf="!isLoading && bolao && participantes.length === 0">
+  <div class="row">
+    <div class="col-12 text-center text-white">
+      <div class="alert alert-info">
+        <i class="fas fa-info-circle me-2"></i>
+        Este bolão ainda não possui apostas registradas ou os dados de apostas não estão disponíveis na API atual.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Botões de Ação -->
+<div class="container mt-4" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col-12 text-center">
+      <button type="button" class="btn btn-secondary me-2" (click)="voltarParaLista()">
+        <i class="fas fa-arrow-left me-2"></i>
+        Voltar para Lista
+      </button>
+      <button type="button" class="btn btn-primary" (click)="carregarBolaoDetalhado()">
+        <i class="fas fa-sync-alt me-2"></i>
+        Atualizar
+      </button>
+    </div>
+  </div>
+</div>
