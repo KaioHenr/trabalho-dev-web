@@ -1,18 +1,12 @@
 import {
-
+    GetAuth,
+    Logout,
     PostUser,
     GetOneUser,
     GetAllUser,
     PatchUser,
     DeleteUser,
 } from './ControllerUser.js';
-
-import {
-    GetAuth,
-    Logout,
-    GetSession,
-    RefreshToken,
-} from './ControllerAutenticacao.js'
 
 import {
     PostGrupo,
@@ -64,8 +58,6 @@ export {
     //Autenticacao
     GetAuth,
     Logout,
-    GetSession,
-    RefreshToken,
     // Controler User
     PostUser,
     GetOneUser,

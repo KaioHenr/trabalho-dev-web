@@ -15,7 +15,10 @@ export async function GetAuth(req, res) {
 
         const user = await SelectUser(email, senha);
         if (!user) res.status(401).json({ message: 'Usuário não encontrado' })
-        res.json(user);
+        res.json({
+            message: 'Usuário logado com sucesso!',
+            user: user
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

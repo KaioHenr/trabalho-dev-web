@@ -4,8 +4,6 @@ import {
     //Autenticação
     GetAuth,
     Logout,
-    GetSession,
-    RefreshToken,
     //User
     PostUser,
     GetOneUser,
@@ -23,8 +21,6 @@ export const routerUser = express.Router();
 
 routerUser.post('/login', GetAuth);
 routerUser.patch('/logout', Authentication, Logout);
-routerUser.get('/session', Authentication, GetSession);
-routerUser.patch('/refresh', Authentication, RefreshToken);
 
 routerUser.post('/post-user', PostUser);
 routerUser.get('/get-one-user/:id', Authentication, GetOneUser);
