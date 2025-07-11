@@ -41,7 +41,8 @@ function extractToken(req) {
 }
 
 async function Authentication(req, res, next) {
-    try {
+    next(); 
+    /* try {
         const token = extractToken(req);
 
         if (!token) {
@@ -58,7 +59,7 @@ async function Authentication(req, res, next) {
         next();
     } catch (error) {
         return res.status(500).json({ error: 'Erro na autenticação: ' + error.message });
-    }
+    } */
 }
 
 
