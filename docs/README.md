@@ -86,7 +86,7 @@ Tela para buscar e entrar em bolões.
 
 ### Modelo 
 
-![alt text](diagrama_dados.jpg)
+![alt text](diagrama_dados.png)
 
 ### Entidades Principais
 
