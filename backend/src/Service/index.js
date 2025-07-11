@@ -19,6 +19,7 @@ import {
 import {
     SelectOneOpcao,
     SelectAllOpcao,
+    InsertOpcaoGrupo,
     InsertOpcao,
     UpdateOpcao,
     RemoveOpcao
@@ -49,6 +50,7 @@ export {
     //Opcao
     SelectOneOpcao,
     SelectAllOpcao,
+    InsertOpcaoGrupo,
     InsertOpcao,
     UpdateOpcao,
     RemoveOpcao,

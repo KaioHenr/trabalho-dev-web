@@ -1,5 +1,5 @@
 import { TableGrupo, TableUser, TableOpcao } from '../Database/Models/index.js';
-import { InsertOpcao } from './index.js'
+import { InsertOpcaoGrupo } from './index.js'
 import bolaoDB from '../Database/index.js';
 
 export async function SelectOneGrupo(id) {
@@ -59,7 +59,7 @@ export async function InsertGrupo(newGrupo) {
                 grupoId: grupoCriado.id,
                 descricao: opcoe
             };
-            await InsertOpcao(objAux, transaction);
+            await InsertOpcaoGrupo(objAux, transaction);
         }
 
         await transaction.commit();

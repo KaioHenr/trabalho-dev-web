@@ -41,42 +41,22 @@ function extractToken(req) {
 }
 
 async function Authentication(req, res, next) {
-<<<<<<< HEAD
     next();
     // try {
     //     const token = extractToken(req);
-=======
-    next(); 
-    /* try {
-        const token = extractToken(req);
->>>>>>> 60759f2cda44d6a0e2e66391856a2c3e930c0c3b
-
     //     if (!token) {
     //         return res.status(401).json({ error: 'Token não fornecido ou mal formatado.' });
     //     }
-
     //     const user = await TableUser.findOne({ where: { token } });
-
     //     if (!user) {
     //         return res.status(401).json({ error: 'Token inválido.' });
     //     }
-
-<<<<<<< HEAD
     //     req.user = user; // guarda info do usuário
     //     next();
     // } catch (error) {
     //     return res.status(500).json({ error: 'Erro na autenticação: ' + error.message });
     // }
-=======
-        req.user = user; // guarda info do usuário
-        next();
-    } catch (error) {
-        return res.status(500).json({ error: 'Erro na autenticação: ' + error.message });
-    } */
->>>>>>> 60759f2cda44d6a0e2e66391856a2c3e930c0c3b
 }
-
-
 export {
     // Função de autenticação
     Authentication,
