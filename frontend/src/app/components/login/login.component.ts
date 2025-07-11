@@ -15,6 +15,7 @@ export class LoginComponent {
   form: FormGroup;
   loginSucesso: boolean = false; // Para feedback ao usuário
   loginErro: string | null = null; // Para feedback de erro
+  isLoading: boolean = false; // Para controlar o estado de loading
 
 
   constructor (
@@ -34,6 +35,8 @@ export class LoginComponent {
     if(this.form.invalid){
       this.mensageriaService.mensagemErro("Formulário invalido...");
     } else {
+      this.isLoading = true; // Ativa o loading
+      
        const dados = {
         email: this.form.value.email,
         senha: this.form.value.senha
@@ -44,6 +47,7 @@ export class LoginComponent {
         next: (response) => {
           console.log('Usuário logado!', response);
           this.loginSucesso = true;
+          this.isLoading = false; // Desativa o loading
 
           this.mensageriaService.mensagemSucesso('Login realizado com sucesso!');
 
@@ -64,6 +68,7 @@ export class LoginComponent {
         error: (error) => {
           console.error('Erro na tentativa de login:', error);
           this.loginErro = error.error.message || 'Ocorreu um erro no login. Tente novamente.';
+          this.isLoading = false; // Desativa o loading em caso de erro
 
           this.mensageriaService.mensagemErro(this.loginErro ?? '');
           this.form.markAllAsTouched();

@@ -50,6 +50,7 @@ export class ListBolaoComponent implements OnInit {
     this.bolaoService.getAllGrupo().subscribe({
       next: (response) => {
         console.log('Resposta da API:', response);
+        console.log('Estrutura detalhada dos dados:', JSON.stringify(response, null, 2));
         
         // Adaptar os dados da API para o formato esperado pelo componente
         this.boloes = this.adaptarDadosAPI(response.data || response);
@@ -57,6 +58,9 @@ export class ListBolaoComponent implements OnInit {
         
         // Carregar palpites do usuário após carregar bolões
         this.carregarPalpitesUsuario();
+        
+        // Carregar participantes de cada bolão
+        this.carregarParticipantesBoloes();
         
         this.isLoading = false;
       },
@@ -81,7 +85,11 @@ export class ListBolaoComponent implements OnInit {
       visibilidade: 2, // Default: público (até implementarmos no banco)
       dataCriacao: item.createdAt ? new Date(item.createdAt) : new Date(),
       ativo: item.deletedAt ? false : true, // Baseado no soft delete
-      totalParticipantes: item.participantes?.length || 0,
+      totalParticipantes: item.participantes?.length || 
+                         item.totalParticipantes || 
+                         item.apostas?.length || 
+                         item.UserGrupos?.length || 
+                         0, // Tentar diferentes estruturas da API
       opcoes: item.opcoes?.map((opcao: any) => opcao.descricao) || [],
       palpiteUsuario: item.palpiteUsuario // Novo campo para rastrear o palpite do usuário
     }));
@@ -153,6 +161,129 @@ export class ListBolaoComponent implements OnInit {
           console.log(`Usuário não palpitou no bolão ${bolao.id}`);
         }
       });
+    });
+  }
+
+  private carregarParticipantesBoloes(): void {
+    // Carregar participantes para cada bolão
+    this.boloes.forEach(bolao => {
+      this.bolaoService.obterParticipantesBolao(bolao.id).subscribe({
+        next: (response) => {
+          console.log(`Participantes do bolão ${bolao.id}:`, response);
+          
+          // Tentar diferentes estruturas da resposta
+          let totalParticipantes = 0;
+          
+          if (response.data && Array.isArray(response.data)) {
+            totalParticipantes = response.data.length;
+          } else if (response.participantes && Array.isArray(response.participantes)) {
+            totalParticipantes = response.participantes.length;
+          } else if (response.total) {
+            totalParticipantes = response.total;
+          } else if (response.count) {
+            totalParticipantes = response.count;
+          } else if (Array.isArray(response)) {
+            totalParticipantes = response.length;
+          }
+          
+          // Atualizar o bolão com a quantidade correta de participantes
+          bolao.totalParticipantes = totalParticipantes;
+          
+          // Atualizar também na lista filtrada
+          const filteredIndex = this.boloesFiltered.findIndex(b => b.id === bolao.id);
+          if (filteredIndex !== -1) {
+            this.boloesFiltered[filteredIndex].totalParticipantes = totalParticipantes;
+          }
+        },
+        error: (error) => {
+          console.log(`Erro ao carregar participantes do bolão ${bolao.id}:`, error);
+          
+          // Se não conseguir carregar via API específica, tentar contar pelos palpites
+          this.bolaoService.obterPalpitesBolao(bolao.id).subscribe({
+            next: (palpitesResponse) => {
+              let totalParticipantes = 0;
+              
+              if (palpitesResponse.data && Array.isArray(palpitesResponse.data)) {
+                totalParticipantes = palpitesResponse.data.length;
+              } else if (Array.isArray(palpitesResponse)) {
+                totalParticipantes = palpitesResponse.length;
+              }
+              
+              bolao.totalParticipantes = totalParticipantes;
+              
+              const filteredIndex = this.boloesFiltered.findIndex(b => b.id === bolao.id);
+              if (filteredIndex !== -1) {
+                this.boloesFiltered[filteredIndex].totalParticipantes = totalParticipantes;
+              }
+            },
+            error: (palpitesError) => {
+              console.log(`Erro ao carregar palpites do bolão ${bolao.id}:`, palpitesError);
+              // Manter o valor original ou 0
+            }
+          });
+        }
+      });
+    });
+  }
+
+  private atualizarParticipantesBolao(bolaoId: number): void {
+    this.bolaoService.obterParticipantesBolao(bolaoId).subscribe({
+      next: (response) => {
+        let totalParticipantes = 0;
+        
+        if (response.data && Array.isArray(response.data)) {
+          totalParticipantes = response.data.length;
+        } else if (response.participantes && Array.isArray(response.participantes)) {
+          totalParticipantes = response.participantes.length;
+        } else if (response.total) {
+          totalParticipantes = response.total;
+        } else if (response.count) {
+          totalParticipantes = response.count;
+        } else if (Array.isArray(response)) {
+          totalParticipantes = response.length;
+        }
+        
+        // Atualizar o bolão na lista principal
+        const bolaoIndex = this.boloes.findIndex(b => b.id === bolaoId);
+        if (bolaoIndex !== -1) {
+          this.boloes[bolaoIndex].totalParticipantes = totalParticipantes;
+        }
+        
+        // Atualizar também na lista filtrada
+        const filteredIndex = this.boloesFiltered.findIndex(b => b.id === bolaoId);
+        if (filteredIndex !== -1) {
+          this.boloesFiltered[filteredIndex].totalParticipantes = totalParticipantes;
+        }
+      },
+      error: (error) => {
+        // Fallback: tentar contar pelos palpites
+        this.bolaoService.obterPalpitesBolao(bolaoId).subscribe({
+          next: (palpitesResponse) => {
+            let totalParticipantes = 0;
+            
+            if (palpitesResponse.data && Array.isArray(palpitesResponse.data)) {
+              totalParticipantes = palpitesResponse.data.length;
+            } else if (Array.isArray(palpitesResponse)) {
+              totalParticipantes = palpitesResponse.length;
+            }
+            
+            // Atualizar o bolão na lista principal
+            const bolaoIndex = this.boloes.findIndex(b => b.id === bolaoId);
+            if (bolaoIndex !== -1) {
+              this.boloes[bolaoIndex].totalParticipantes = totalParticipantes;
+            }
+            
+            // Atualizar também na lista filtrada
+            const filteredIndex = this.boloesFiltered.findIndex(b => b.id === bolaoId);
+            if (filteredIndex !== -1) {
+              this.boloesFiltered[filteredIndex].totalParticipantes = totalParticipantes;
+            }
+          },
+          error: (palpitesError) => {
+            console.log(`Erro ao atualizar participantes do bolão ${bolaoId}:`, palpitesError);
+          }
+        });
+      }
     });
   }
 
@@ -317,6 +448,9 @@ export class ListBolaoComponent implements OnInit {
           if (bolaoIndex !== -1) {
             this.boloes[bolaoIndex].palpiteUsuario = this.opcaoEscolhida;
           }
+          
+          // Recarregar participantes para manter atualizado
+          this.atualizarParticipantesBolao(this.bolaoSelecionado.id);
           
           // Reaplicar filtros para atualizar a lista filtrada
           this.aplicarFiltros();

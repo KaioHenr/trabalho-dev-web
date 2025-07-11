@@ -80,4 +80,11 @@ export class BolaoService {
     const url = `${this.apiUrl}${apiSetOpcaoEndpoint}/${idBolao}`;
     return this.http.patch<any>(url, dados);
   }
+
+  // Método para obter os participantes de um bolão
+  obterParticipantesBolao(bolaoId: number): Observable<any> {
+    const apiParticipantesEndpoint = `/participantes/${bolaoId}`;
+    const url = `${this.apiUrl}${apiParticipantesEndpoint}`;
+    return this.http.get<any>(url);
+  }
 }
