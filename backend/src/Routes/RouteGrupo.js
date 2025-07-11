@@ -14,6 +14,10 @@ import {
     GetAllOpcao,
     PatchOpcao,
     DeleteOpcao,
+    //controller palpites
+    PostPalpite,
+    GetMeuPalpite,
+    GetPalpitesBolao,
 } from '../Controller/index.js'
 
 export const routerGrupo = express.Router();
@@ -30,4 +34,9 @@ routerGrupo.get('/get-one-opcao/:id', Authentication, GetOneOpcao);
 routerGrupo.get('/get-all-opcao', Authentication, GetAllOpcao);
 routerGrupo.patch('/edita-opcao/:id', Authentication, PatchOpcao);
 routerGrupo.delete('/delete-opcao/:id', Authentication, DeleteOpcao);
+
+// Rotas para palpites
+routerGrupo.post('/palpite/:grupoId', Authentication, PostPalpite);
+routerGrupo.get('/meu-palpite/:grupoId', Authentication, GetMeuPalpite);
+routerGrupo.get('/palpites/:grupoId', Authentication, GetPalpitesBolao);
 

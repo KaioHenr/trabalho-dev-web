@@ -29,6 +29,9 @@ import {
     GetOneAposta,
     GetAllAposta,
     DeleteAposta,
+    PostPalpite,
+    GetMeuPalpite,
+    GetPalpitesBolao,
 } from './ControllerAposta.js'
 
 import { TableUser } from "../Database/Models/index.js";
@@ -88,4 +91,7 @@ export {
     GetOneAposta,
     GetAllAposta,
     DeleteAposta,
+    PostPalpite,
+    GetMeuPalpite,
+    GetPalpitesBolao,
 };

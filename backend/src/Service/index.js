@@ -30,7 +30,10 @@ import {
     InsertAposta,
     SelectOneAposta,
     SelectAllAposta,
-    RemoveAposta
+    RemoveAposta,
+    InsertPalpite,
+    SelectPalpiteUsuarioGrupo,
+    SelectTodosPalpitesGrupo
 } from './ServiceAposta.js'
 
 export {
@@ -60,5 +63,8 @@ export {
     InsertAposta,
     SelectOneAposta,
     SelectAllAposta,
-    RemoveAposta
+    RemoveAposta,
+    InsertPalpite,
+    SelectPalpiteUsuarioGrupo,
+    SelectTodosPalpitesGrupo
 };
