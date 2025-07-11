@@ -3,11 +3,12 @@ import {
     SelectOneGrupo,
     InsertGrupo,
     UpdateGrupo,
-    RemoveGrupo
+    RemoveGrupo,
+    UpdateOpcaoGanhador
 } from '../Service/ServiceGrupo.js';
 
-export async function PostGrupo(req, res){
-  try {
+export async function PostGrupo(req, res) {
+    try {
         const newGrupo = req.body;
         await InsertGrupo(newGrupo);
         res.status(201).json({ message: 'Bolão criado com sucesso' });
@@ -16,7 +17,7 @@ export async function PostGrupo(req, res){
     }
 }
 
-export async function GetOneGrupo(req, res){
+export async function GetOneGrupo(req, res) {
     try {
         const { id } = req.params;
         const grupo = await SelectOneGrupo(id);
@@ -26,7 +27,7 @@ export async function GetOneGrupo(req, res){
     }
 }
 
-export async function GetAllGrupo(req, res){
+export async function GetAllGrupo(req, res) {
     try {
         const grupos = await SelectAllGrupos();
         res.json(grupos);
@@ -46,12 +47,24 @@ export async function PatchGrupo(req, res) {
     }
 }
 
-export async function DeleteGrupo(req, res){
-  try {
+export async function DeleteGrupo(req, res) {
+    try {
         const { id } = req.params;
         await RemoveGrupo(id);
         res.json({ message: 'Grupo removido com sucesso' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
+}
+
+export async function PatchOpcaoGanhador(req, res) {
+    try {
+        const { id } = req.params;
+        const { idOpcaoGanhador } = req.body;
+        const ganhador = await UpdateOpcaoGanhador(id, idOpcaoGanhador);
+        res.json(ganhador);
+    } catch (error) {
+
+    }
+
 }

@@ -13,7 +13,8 @@ import {
     GetOneGrupo,
     GetAllGrupo,
     PatchGrupo,
-    DeleteGrupo
+    DeleteGrupo,
+    PatchOpcaoGanhador
 } from './ControllerGrupo.js';
 
 import {
@@ -75,6 +76,7 @@ export {
     GetAllGrupo,
     PatchGrupo,
     DeleteGrupo,
+    PatchOpcaoGanhador,
     // Opcao
     PostOpcao,
     GetOneOpcao,

@@ -7,6 +7,7 @@ import {
     GetAllGrupo,
     PatchGrupo,
     DeleteGrupo,
+    PatchOpcaoGanhador,
     //controler opcao
     PostOpcao,
     GetOneOpcao,
@@ -22,7 +23,7 @@ routerGrupo.get('/get-one-grupo/:id', Authentication, GetOneGrupo);
 routerGrupo.get('/get-all-grupo', Authentication, GetAllGrupo);
 routerGrupo.patch('/patch-grupo/:id', Authentication, PatchGrupo);
 routerGrupo.delete('/delete-grupo/:id', Authentication, DeleteGrupo);
-
+routerGrupo.patch('/ganhador/:id', Authentication, PatchOpcaoGanhador);
 
 routerGrupo.post('/adiciona-opcao', Authentication, PostOpcao);
 routerGrupo.get('/get-one-opcao/:id', Authentication, GetOneOpcao);

@@ -1,4 +1,4 @@
-import { TableGrupo, TableUser, TableOpcao } from '../Database/Models/index.js';
+import { TableGrupo, TableUser, TableOpcao, TableAposta } from '../Database/Models/index.js';
 import { InsertOpcaoGrupo } from './index.js'
 import bolaoDB from '../Database/index.js';
 
@@ -93,5 +93,59 @@ export async function RemoveGrupo(id) {
     } catch (error) {
         await transaction.rollback();
         throw new Error('Erro ao remover Bolão: ' + error.message);
+    }
+}
+
+export async function UpdateOpcaoGanhador(idGrupo, idOpcaoGanhador) {
+    const transaction = await bolaoDB.transaction();
+
+    try {
+        const grupo = await TableGrupo.findByPk(idGrupo, { transaction });
+        if (!grupo) {
+            throw new Error('Grupo não encontrado.');
+        }
+
+        const opcao = await TableOpcao.findOne({
+            where: {
+                id: idOpcaoGanhador,
+                grupoId: idGrupo
+            },
+            transaction
+        });
+
+        if (!opcao) {
+            throw new Error('Opção não pertence a este grupo.');
+        }
+
+        grupo.opcaoId = idOpcaoGanhador;
+        await grupo.save({ transaction });
+
+        const objCompleto = await TableGrupo.findByPk(idGrupo, {
+            include: [
+                {
+                    model: TableOpcao,
+                    as: 'opcoes',
+                    include: [
+                        {
+                            model: TableAposta,
+                            as: 'apostas',
+                            include: [
+                                {
+                                    model: TableUser,
+                                    as: 'apostador'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            transaction
+        });
+
+        await transaction.commit();
+        return { success: true, grupo: objCompleto };
+    } catch (error) {
+        await transaction.rollback();
+        throw new Error('Erro ao atualizar ganhador do grupo: ' + error.message);
     }
 }

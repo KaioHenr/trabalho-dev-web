@@ -13,7 +13,8 @@ import {
     SelectOneGrupo,
     InsertGrupo,
     UpdateGrupo,
-    RemoveGrupo
+    RemoveGrupo,
+    UpdateOpcaoGanhador
 } from './ServiceGrupo.js';
 
 import {
@@ -47,6 +48,7 @@ export {
     InsertGrupo,
     UpdateGrupo,
     RemoveGrupo,
+    UpdateOpcaoGanhador,
     //Opcao
     SelectOneOpcao,
     SelectAllOpcao,
